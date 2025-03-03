@@ -1,7 +1,3 @@
-Below is a sample `README.md` structure with suggested sections and content. Feel free to adjust the wording or add/remove sections based on your specific needs.
-
----
-
 # Topic Modeling on MIMIC-III Clinical Notes
 
 This project applies topic modeling techniques to free-text clinical notes from the MIMIC-III dataset. The goal is to uncover hidden themes or “topics” within the notes that can provide insights into patient care, clinical documentation patterns, and potential areas for further analysis.
@@ -130,18 +126,6 @@ This project applies topic modeling techniques to free-text clinical notes from 
   Explore transformer-based models like BERTopic or neural topic models for potentially richer semantic insights.
 
 ---
-
-## License
-
-- **MIMIC-III Data:** Licensed under the [PhysioNet Credentialed Health Data License](https://physionet.org/content/mimiciii/view-license/1.4/).  
-- **Code in This Repository:** Distributed under the MIT License (or your chosen license).
-
----
-
-### Acknowledgments
-
-- [MIT Lab for Computational Physiology](https://lcp.mit.edu/) for providing MIMIC-III.  
-- [spaCy](https://spacy.io/), [Gensim](https://radimrehurek.com/gensim/), [pyLDAvis](https://github.com/bmabey/pyLDAvis) communities for open-source NLP tools.
 
 ---
 
