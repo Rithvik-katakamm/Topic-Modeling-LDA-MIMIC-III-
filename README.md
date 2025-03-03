@@ -14,7 +14,6 @@ This project applies topic modeling techniques to free-text clinical notes from 
 6. [Evaluation & Visualization](#evaluation--visualization)  
 7. [Results](#results)  
 8. [Future Work](#future-work)  
-9. [License](#license)
 
 ---
 
