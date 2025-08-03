@@ -8,7 +8,7 @@
 
 ## 🎯 **Immediate Results Available**
 
-**📊 [View Interactive Topic Explorer →](outputs/visualizations/topic_explorer.html)**  
+**📊 [🔴 LIVE DEMO: Interactive Clinical Topic Explorer →](https://rithvik-katakamm.github.io/Topic-Modeling-LDA-MIMIC-III-/)**  
 **📈 [View Clinical Dashboard →](outputs/visualizations/clinical_dashboard.html)**  
 **📋 [View Topic Summary →](outputs/visualizations/topic_summary.csv)**
 
