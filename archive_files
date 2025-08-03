@@ -1,0 +1,353 @@
+# Clinical Topic Modeling - Complete Setup Guide
+
+🏥 **From Zero to Production: Complete Setup for MIMIC-III Topic Modeling**
+
+This guide walks you through setting up and running the clinical topic modeling pipeline from scratch. Follow each step carefully and you'll have a production-ready healthcare NLP project running in 30 minutes.
+
+---
+
+## 📋 Prerequisites
+
+**What You Need:**
+- ✅ macOS with M2 Pro (you have this)
+- ✅ Python 3.8+ (check with `python --version`)
+- ✅ Git (for version control)
+- ✅ 2GB free disk space
+- ✅ Internet connection (for downloading models)
+
+---
+
+## 🚀 Step-by-Step Setup
+
+### **Step 1: Navigate to Project Directory**
+
+```bash
+cd /Users/rithvik/projects/Topic-Modeling-LDA-MIMIC-III-
+pwd  # Should show: /Users/rithvik/projects/Topic-Modeling-LDA-MIMIC-III-
+ls   # Should show: src/, scripts/, config.yaml, etc.
+```
+
+**✅ Expected:** You should see the new project structure with `src/`, `scripts/`, `config.yaml`
+
+---
+
+### **Step 2: Create Virtual Environment (Recommended)**
+
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate it
+source .venv/bin/activate
+
+# Verify activation (should see (.venv) in prompt)
+which python  # Should show path with .venv
+```
+
+**✅ Expected:** Your terminal prompt should now start with `(.venv)`
+
+---
+
+### **Step 3: Install Dependencies**
+
+```bash
+# Upgrade pip first
+pip install --upgrade pip
+
+# Install all requirements
+pip install -r requirements.txt
+
+# Install spaCy English model (CRITICAL!)
+python -m spacy download en_core_web_sm
+```
+
+**⚠️ Watch for errors here!** Common issues:
+- If `spacy download` fails: try `pip install spacy[transformers]`
+- If MLflow fails: try `pip install mlflow==2.0.1` (specific version)
+
+**✅ Expected:** All packages install without errors
+
+---
+
+### **Step 4: Verify Data Access**
+
+```bash
+# Check if your data file exists
+ls -la "Topic Modeling/text_data_sampled"
+
+# Should show file size around 10MB
+du -h "Topic Modeling/text_data_sampled"
+```
+
+**✅ Expected:** 
+```
+-rw-r--r--  1 rithvik  staff   10M Aug  2 21:37 Topic Modeling/text_data_sampled
+```
+
+---
+
+### **Step 5: Test the Pipeline (IMPORTANT!)**
+
+```bash
+# Run the test script first
+python test_pipeline.py
+```
+
+**✅ Expected Output:**
+```
+🧪 Testing Clinical Topic Modeling Pipeline
+==================================================
+✅ Config loaded successfully
+✅ Text processor initialized
+✅ Sample processing works: 15 tokens extracted
+   Sample tokens: ['admission', 'date', 'discharge', 'history', 'present']
+
+🎉 Pipeline test successful!
+Ready to run: python scripts/train_model.py
+```
+
+**❌ If you see errors:**
+- `ModuleNotFoundError`: Install missing packages with `pip install <package-name>`
+- `spaCy model not found`: Run `python -m spacy download en_core_web_sm` again
+- `Config file not found`: Make sure you're in the right directory
+
+---
+
+### **Step 6: Configure Your Run (Optional)**
+
+Edit `config.yaml` if you want to customize:
+
+```bash
+# Quick edit of sample size (for faster testing)
+nano config.yaml
+
+# Find this line and change if needed:
+  sample_size: 10000          # Smaller = faster training
+```
+
+**Recommended settings for first run:**
+- `sample_size: 5000` (faster)
+- `num_topics: 8` (simpler)
+
+---
+
+### **Step 7: Run Full Training Pipeline**
+
+```bash
+# Full training with default settings
+python scripts/train_model.py
+
+# OR with custom parameters
+python scripts/train_model.py --topics 8 --sample 5000
+```
+
+**⏱️ Expected Time:** 5-15 minutes depending on sample size
+
+**✅ Expected Output:**
+```
+2025-08-02 22:30:15 - INFO - 🏥 Starting Clinical Topic Modeling Pipeline
+2025-08-02 22:30:15 - INFO - 📊 Topics: 8
+2025-08-02 22:30:15 - INFO - 📄 Sample size: 5000
+2025-08-02 22:30:16 - INFO - Step 1: Initializing components...
+2025-08-02 22:30:17 - INFO - Loaded spaCy English model successfully
+2025-08-02 22:30:17 - INFO - Step 2: Loading and preprocessing clinical text...
+2025-08-02 22:30:20 - INFO - Processing 5000 documents...
+2025-08-02 22:35:22 - INFO - ✅ Preprocessed 4847 clinical documents
+2025-08-02 22:35:22 - INFO - Step 3: Training LDA topic model...
+2025-08-02 22:40:15 - INFO - Model training completed!
+2025-08-02 22:40:25 - INFO - Coherence Score (c_v): 0.5234
+
+==================================================
+🎯 CLINICAL TOPIC ANALYSIS RESULTS
+==================================================
+📈 Coherence Score: 0.5234
+📚 Vocabulary Size: 3421
+📄 Documents Processed: 4847
+
+🏷️  DISCOVERED CLINICAL TOPICS:
+--------------------------------------------------
+Topic 0: patient, admission, hospital, discharge, care
+Topic 1: chest, lung, respiratory, oxygen, ventilator  
+Topic 2: blood, pressure, heart, cardiac, medication
+...
+
+📊 VISUALIZATIONS CREATED:
+- Topic word clouds
+- Interactive topic explorer  
+- Clinical dashboard
+- All saved to: outputs/visualizations
+
+✅ Clinical topic modeling pipeline completed successfully!
+```
+
+---
+
+### **Step 8: Check Results**
+
+```bash
+# Check outputs were created
+ls outputs/models/        # Should see: lda_model.pkl, dictionary.pkl, metrics.pkl
+ls outputs/visualizations/ # Should see: *.html, *.png files
+
+# Open interactive visualizations
+open outputs/visualizations/topic_explorer.html
+open outputs/visualizations/clinical_dashboard.html
+```
+
+**✅ Expected:** Browser opens with interactive topic visualizations
+
+---
+
+### **Step 9: Generate Additional Reports (Optional)**
+
+```bash
+# Generate visualizations from saved model
+python scripts/generate_report.py
+```
+
+**Use case:** If you want to create new visualizations without retraining
+
+---
+
+## 🔧 Troubleshooting Guide
+
+### **Common Issues & Solutions**
+
+#### **1. Import Errors**
+```bash
+# Error: ModuleNotFoundError: No module named 'yaml'
+pip install pyyaml
+
+# Error: No module named 'spacy'  
+pip install spacy
+python -m spacy download en_core_web_sm
+```
+
+#### **2. Data Loading Issues**
+```bash
+# Error: File not found
+ls "Topic Modeling/text_data_sampled"  # Verify file exists
+pwd  # Make sure you're in the right directory
+```
+
+#### **3. Memory Issues (Large Dataset)**
+```bash
+# Reduce sample size in config.yaml
+sample_size: 1000  # Start small
+```
+
+#### **4. Training Takes Too Long**
+```bash
+# Use smaller parameters for testing
+python scripts/train_model.py --topics 5 --sample 1000
+```
+
+#### **5. MLflow Issues**
+```bash
+# If MLflow UI won't start
+pip install mlflow==2.0.1
+mlflow ui  # Should start on localhost:5000
+```
+
+---
+
+## 🎯 What to Look For (Success Indicators)
+
+### **During Training:**
+- ✅ "Loaded spaCy English model successfully"
+- ✅ "Preprocessed X clinical documents" (should be > 1000)
+- ✅ "Model training completed!"
+- ✅ Coherence score between 0.3-0.7
+
+### **Final Results:**
+- ✅ Files created in `outputs/models/`
+- ✅ HTML files created in `outputs/visualizations/`
+- ✅ Topics make clinical sense (medical terms)
+- ✅ Interactive visualizations open in browser
+
+### **Performance Benchmarks:**
+- **Good coherence:** > 0.4
+- **Great coherence:** > 0.5  
+- **Processing speed:** ~1000 docs/minute
+- **Training time:** 5-15 minutes for 5K docs
+
+---
+
+## 🚨 When to Ask for Help
+
+**Come back with questions if you see:**
+
+1. **Import errors** that persist after installing requirements
+2. **Data file not found** errors
+3. **Coherence scores < 0.3** (indicates model issues)
+4. **Training stuck** for >30 minutes
+5. **No visualizations generated**
+6. **MLflow tracking not working**
+
+**What to include in your question:**
+- Exact error message
+- Command you ran
+- Your current directory (`pwd`)
+- Python version (`python --version`)
+
+---
+
+## 🎉 Success Criteria
+
+**You'll know it worked when:**
+
+1. ✅ Training completes without errors
+2. ✅ Coherence score > 0.4
+3. ✅ Topics contain medical terms
+4. ✅ Interactive visualizations work
+5. ✅ Model files saved in `outputs/`
+6. ✅ You can explain the discovered topics
+
+---
+
+## 💡 Pro Tips
+
+### **For Faster Iteration:**
+```bash
+# Quick test run
+python scripts/train_model.py --topics 5 --sample 1000 --no-viz
+
+# Full production run
+python scripts/train_model.py --topics 15 --sample 10000
+```
+
+### **For Demo Purposes:**
+- Use 8-10 topics (easy to explain)
+- Sample 5K-10K documents (good balance)
+- Always generate visualizations (impressive)
+
+### **For MLflow Tracking:**
+```bash
+# Start MLflow UI in another terminal
+mlflow ui
+# Then open: http://localhost:5000
+```
+
+---
+
+## 🎯 Expected Timeline
+
+- **Setup (Steps 1-5):** 10 minutes
+- **Testing (Step 5):** 2 minutes  
+- **Training (Step 7):** 5-15 minutes
+- **Review results (Step 8):** 5 minutes
+
+**Total:** ~30 minutes to full working pipeline
+
+---
+
+## 📞 Ready for Questions!
+
+Once you start running through this setup, I'll be here to help with:
+- 🐛 **Debugging errors**
+- ⚙️ **Optimizing parameters**  
+- 📊 **Interpreting results**
+- 🎨 **Customizing visualizations**
+- 🚀 **Preparing for presentation**
+
+**Good luck! Start with `python test_pipeline.py` and let me know how it goes!**

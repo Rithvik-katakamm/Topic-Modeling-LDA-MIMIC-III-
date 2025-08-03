@@ -1,0 +1,44 @@
+# Clinical Topic Modeling Configuration
+# Professional configuration for MIMIC-III topic modeling project
+
+# Model Parameters
+model:
+  num_topics: 8              # Number of topics to extract
+  alpha: auto                 # Document-topic density (auto = learn from data)
+  beta: auto                  # Topic-word density (auto = learn from data)
+  iterations: 50              # Training iterations
+  passes: 10                  # Number of passes through corpus
+  random_state: 42            # For reproducibility
+
+# Data Processing
+data:
+  sample_size: 5000          # Number of documents to sample (null = use all)
+  min_word_count: 5           # Minimum word frequency to include
+  max_word_freq: 0.8          # Maximum document frequency for words
+  min_doc_length: 10          # Minimum document length after preprocessing
+
+# Text Preprocessing
+preprocessing:
+  remove_stopwords: true      # Remove common stopwords
+  lemmatize: true            # Convert words to root form
+  remove_punct: true         # Remove punctuation
+  lowercase: true            # Convert to lowercase
+  remove_nums: true          # Remove numbers
+  min_token_length: 3        # Minimum token length
+
+# Evaluation
+evaluation:
+  coherence_metric: c_v       # Coherence measure (c_v is standard)
+  compute_perplexity: true    # Whether to compute perplexity
+  
+# MLflow Tracking
+mlflow:
+  experiment_name: "clinical_topic_modeling"
+  track_artifacts: true
+  
+# Paths
+paths:
+  data_file: "Topic Modeling/text_data_sampled"
+  output_dir: "outputs"
+  model_dir: "outputs/models"
+  viz_dir: "outputs/visualizations"

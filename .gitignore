@@ -1,0 +1,181 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.pyc
+
+# Virtual environments (all variants)
+.env
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-meta/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# MLflow (comprehensive) - but keep for portfolio demo
+mlruns/
+mlflow_tracking/
+.mlflow/
+mlflow.db
+mlflow-runs/
+
+# Data files (keep demo data, ignore large datasets)
+*.csv
+!sample_data.csv
+# Keep the demo data for this project
+!"Topic Modeling/text_data_sampled"
+# But ignore other large data files in Topic Modeling directory
+"Topic Modeling"/*.csv
+"Topic Modeling"/NOTEEVENTS*.csv
+
+# PORTFOLIO PROJECT: Keep outputs/ to showcase results
+# (In production, you'd ignore outputs/, but for job demos, show the results!)
+
+# Logs and temporary files
+*.log
+logs/
+log/
+*.tmp
+tmp/
+temp/
+.cache/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+ehthumbs.db
+Thumbs.db
+
+# Windows system files
+*.lnk
+
+# Configuration files with secrets (if any)
+.env.local
+.env.*.local
+config/secrets.yaml
+*.key
+*.pem
+
+# spaCy models and downloads (cache)
+.spacy/
+spacy_models/
+
+# Gensim temporary files
+.gensim/
+gensim_data/
+
+# Scientific computing temporary files
+.numba_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Additional ML/Data Science patterns (but not model outputs for this portfolio)
+*.ckpt
+*.pt
+*.pth
+*.weights
+*.tfevents.*
+runs/
+tensorboard_logs/
+wandb/
+
+# Conda environments
+environment.yml.lock
+
+# Documentation builds
+docs/_build/
+docs/build/
+site/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Archive and compressed files (temporary)
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+
+# Development database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment and dependency files (local overrides)
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Project-specific cleanup files
+old_gitignore_backup
+archive_files/
